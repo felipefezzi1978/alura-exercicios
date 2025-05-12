@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sorteio de Letras do Nome</title>
+</head>
+<body>
+  <h2>Digite seu nome:</h2>
+  <input type="text" id="nome" placeholder="Digite aqui" />
+  <button onclick="sortearLetras()">Sortear Letras</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function sortearLetras() {
+      const nome = document.getElementById("nome").value.trim();
+
+      if (nome.length < 6) {
+        document.getElementById("resultado").innerText = "Digite um nome com pelo menos 6 letras.";
+        return;
+      }
+
+      const primeiras = nome.slice(0, 3).split('');
+      const ultimas = nome.slice(-3).split('');
+
+      // Função para embaralhar um array
+      function embaralhar(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      const sorteadasPrimeiras = embaralhar([...primeiras]).join('');
+      const sorteadasUltimas = embaralhar([...ultimas]).join('');
+
+      document.getElementById("resultado").innerText =
+        `Letras sorteadas:\nInício: ${sorteadasPrimeiras} | Fim: ${sorteadasUltimas}`;
+    }
+  </script>
+</body>
+</html>
